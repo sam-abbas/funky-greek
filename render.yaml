@@ -1,17 +1,17 @@
 services:
   - type: web
     name: stock-chart-analyzer
-    env: python
+    env: docker
     plan: free
-    buildCommand: pip install -r requirements_enhanced.txt
-    startCommand: uvicorn main_enhanced:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
+      - key: ENVIRONMENT
+        value: production
       - key: LOG_LEVEL
         value: INFO
-      - key: PIP_VERSION
-        value: "23.3.1"
-    # Ensure Python environment is used
-    dockerfilePath: ""
-    dockerContext: ""
+      - key: FORCE_LOCAL_MODE
+        value: "true"
+      - key: ALLOWED_HOSTS
+        value: "funky-greek.onrender.com,*.onrender.com"
+      - key: ALLOWED_ORIGINS
+        value: "https://funky-greek.onrender.com,https://*.onrender.com"
