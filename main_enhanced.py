@@ -174,7 +174,7 @@ async def root(request: Request):
         )
     
     return sanitize_response({
-        "message": "Chart Analysis Service",
+        "message": f"{enhanced_settings.API_TITLE} v{enhanced_settings.API_VERSION}",
         "status": "running"
     })
 
@@ -191,6 +191,8 @@ async def health_check(request: Request):
     
     return sanitize_response({
         "status": "healthy",
+        "service": enhanced_settings.API_TITLE,
+        "version": enhanced_settings.API_VERSION,
         "timestamp": datetime.now().isoformat()
     })
 
@@ -206,8 +208,11 @@ async def get_info(request: Request):
         )
     
     return sanitize_response({
-        "name": "Chart Analysis Service",
-        "description": "Professional chart analysis with advanced pattern recognition",
+        "name": enhanced_settings.API_TITLE,
+        "version": enhanced_settings.API_VERSION,
+        "description": enhanced_settings.API_DESCRIPTION,
+        "environment": os.getenv("ENVIRONMENT", "development"),
+        "local_mode": enhanced_settings.FORCE_LOCAL_MODE,
         "features": [
             "Real-time chart analysis",
             "Advanced computer vision",
