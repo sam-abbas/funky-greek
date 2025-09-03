@@ -10,3 +10,5 @@ services:
         value: 3.9.18
       - key: LOG_LEVEL
         value: INFO
+    # Force Python environment instead of Docker
+    dockerfilePath: null
