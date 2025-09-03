@@ -1,0 +1,60 @@
+{
+  "health": {
+    "status_code": 200,
+    "success": true,
+    "response": {
+      "status": "healthy",
+      "service": "chart-analysis",
+      "version": "1.0.0",
+      "timestamp": 1756935074.6436224
+    }
+  },
+  "info": {
+    "status_code": 200,
+    "success": true,
+    "response": {
+      "service": "Stock Chart Analysis API",
+      "version": "1.0.0",
+      "description": "A cost-effective service for analyzing stock charts and providing technical analysis",
+      "features": [
+        "Technical indicator calculation",
+        "Chart pattern recognition",
+        "Support/resistance detection",
+        "Trend analysis",
+        "Trading advice generation"
+      ],
+      "cost_optimization": [
+        "No external API dependencies",
+        "Open source libraries",
+        "Local processing",
+        "Efficient algorithms"
+      ]
+    }
+  },
+  "demo_local": {
+    "status_code": 404,
+    "success": false,
+    "response": {
+      "detail": "Not Found"
+    }
+  },
+  "config": {
+    "status_code": 404,
+    "success": false,
+    "response": {
+      "detail": "Not Found"
+    }
+  },
+  "analyze_chart_local": {
+    "status_code": 404,
+    "success": false,
+    "response": {
+      "detail": "Not Found"
+    }
+  },
+  "docs": {
+    "status_code": 200,
+    "success": true,
+    "content_type": "text/html; charset=utf-8"
+  }
+}
