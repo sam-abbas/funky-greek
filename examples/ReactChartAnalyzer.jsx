@@ -5,11 +5,11 @@ const ReactChartAnalyzer = () => {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState(null);
     const [error, setError] = useState(null);
-    
+
     // Configurationhttps://your-api.onrender.com
     const API_BASE_URL = 'https://funky-greek.onrender.com'; // Replace with your API URL
-    const ENDPOINT = '/analyze-chart-local'; // Use local analysis (no API key needed)
-    
+    const ENDPOINT = '/analyze-chart'; // Use main analysis endpoint (works on current deployment)
+
     const handleFileChange = useCallback((e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
@@ -18,7 +18,7 @@ const ReactChartAnalyzer = () => {
             setResults(null);
         }
     }, []);
-    
+
     const handleDrop = useCallback((e) => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
@@ -28,49 +28,49 @@ const ReactChartAnalyzer = () => {
             setResults(null);
         }
     }, []);
-    
+
     const handleDragOver = useCallback((e) => {
         e.preventDefault();
     }, []);
-    
+
     const analyzeChart = async () => {
         if (!file) return;
-        
+
         setLoading(true);
         setError(null);
-        
+
         try {
             const formData = new FormData();
             formData.append('chart_image', file);
-            
+
             const response = await fetch(`${API_BASE_URL}${ENDPOINT}`, {
                 method: 'POST',
                 body: formData,
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 setResults(data.analysis);
             } else {
                 setError(data.error || 'Analysis failed');
             }
-            
+
         } catch (err) {
             setError(`Failed to analyze chart: ${err.message}`);
         } finally {
             setLoading(false);
         }
     };
-    
+
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
             <h1>📊 Chart Analyzer - React</h1>
-            
+
             {/* File Upload */}
             <div
                 style={{
@@ -110,19 +110,19 @@ const ReactChartAnalyzer = () => {
                     </div>
                 )}
             </div>
-            
+
             {/* Error Display */}
             {error && (
                 <div style={{ color: 'red', padding: '10px', backgroundColor: '#ffe6e6', borderRadius: '5px' }}>
                     ❌ {error}
                 </div>
             )}
-            
+
             {/* Results Display */}
             {results && (
                 <div style={{ padding: '20px', backgroundColor: '#f8f9fa', borderRadius: '5px' }}>
                     <h3>✅ Analysis Results</h3>
-                    
+
                     <div style={{ marginBottom: '20px' }}>
                         <strong>Confidence:</strong> {(results.confidence * 100).toFixed(1)}%
                         <br />
@@ -130,7 +130,7 @@ const ReactChartAnalyzer = () => {
                         <br />
                         <strong>Processing Time:</strong> {results.processing_time}s
                     </div>
-                    
+
                     {/* Patterns */}
                     {results.patterns && results.patterns.length > 0 && (
                         <div>
@@ -144,7 +144,7 @@ const ReactChartAnalyzer = () => {
                             </ul>
                         </div>
                     )}
-                    
+
                     {/* Technical Indicators */}
                     {results.indicators && results.indicators.length > 0 && (
                         <div>
@@ -158,7 +158,7 @@ const ReactChartAnalyzer = () => {
                             </ul>
                         </div>
                     )}
-                    
+
                     {/* Support & Resistance */}
                     {results.support_resistance && results.support_resistance.length > 0 && (
                         <div>
@@ -172,7 +172,7 @@ const ReactChartAnalyzer = () => {
                             </ul>
                         </div>
                     )}
-                    
+
                     {/* Fair Value Gaps */}
                     {results.fair_value_gaps && results.fair_value_gaps.length > 0 && (
                         <div>
@@ -186,7 +186,7 @@ const ReactChartAnalyzer = () => {
                             </ul>
                         </div>
                     )}
-                    
+
                     {/* Daily Levels */}
                     {results.daily_levels && results.daily_levels.length > 0 && (
                         <div>
