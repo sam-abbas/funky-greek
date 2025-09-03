@@ -22,6 +22,7 @@
 
 ## 🛠️ **Installation & Setup**
 
+
 ### **Step 1: Install Enhanced Dependencies**
 ```bash
 # Install enhanced requirements
@@ -101,6 +102,37 @@ python main_enhanced.py
 - ✅ **Privacy focused** - No data sent to external services
 - ✅ **Offline capable** - Works without internet connection
 - ✅ **Cost optimization** - Perfect for development and testing
+
+### **Security Features (Production Ready)**
+
+**🔒 Comprehensive Security Implementation:**
+- ✅ **Rate Limiting** - 100 requests/hour per IP address
+- ✅ **CORS Protection** - Restricted origins and methods
+- ✅ **Security Headers** - XSS, CSRF, Clickjacking protection
+- ✅ **Input Validation** - File type, size, and content validation
+- ✅ **Response Sanitization** - No sensitive data exposed
+- ✅ **Trusted Host Validation** - Prevents host header attacks
+- ✅ **Error Handling** - Generic error messages, no internal details
+- ✅ **Request Logging** - IP-based monitoring without sensitive data
+
+**Security Testing:**
+```bash
+# Run comprehensive security tests
+python test_security.py
+
+# Test against deployed service
+python test_security.py https://your-app.onrender.com
+```
+
+**Security Configuration:**
+```bash
+# Environment variables for production
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+SECRET_KEY=your-super-secret-key-here
+RATE_LIMIT_PER_HOUR=100
+MAX_REQUESTS_PER_MINUTE=20
+```
 
 ### **Option 1: Render (Recommended)**
 ```yaml
@@ -348,6 +380,52 @@ def safe_analyze_chart(image):
         # Return fallback analysis
         return generate_fallback_analysis(image)
 ```
+
+## 🔒 **Security Checklist (MANDATORY)**
+
+### **Pre-Deployment Security Verification**
+```bash
+# 1. Run comprehensive security tests
+python test_security.py
+
+# 2. Verify no sensitive data exposure
+curl -s http://localhost:8000/info | grep -i "api_key\|secret\|password"
+
+# 3. Test rate limiting
+for i in {1..105}; do curl -s http://localhost:8000/health; done
+
+# 4. Check security headers
+curl -I http://localhost:8000/health | grep -E "(X-Content-Type-Options|X-Frame-Options|X-XSS-Protection)"
+```
+
+### **Security Requirements Checklist**
+- [ ] **Rate Limiting**: 100 requests/hour per IP enforced
+- [ ] **CORS Security**: Restricted origins and methods configured
+- [ ] **Security Headers**: All required headers present
+- [ ] **Input Validation**: File type, size, and content validated
+- [ ] **Response Sanitization**: No sensitive data in responses
+- [ ] **Error Handling**: Generic error messages only
+- [ ] **Logging**: No sensitive data in logs
+- [ ] **Host Validation**: Trusted host middleware active
+
+### **Production Security Settings**
+```bash
+# Environment variables for production
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+SECRET_KEY=your-super-secret-key-here
+RATE_LIMIT_PER_HOUR=100
+MAX_REQUESTS_PER_MINUTE=20
+ENVIRONMENT=production
+LOG_LEVEL=WARNING
+```
+
+### **Security Monitoring**
+- Monitor rate limit violations
+- Track failed authentication attempts
+- Watch for unusual request patterns
+- Review error logs regularly
+- Set up security alerts
 
 ## 🚨 **Troubleshooting**
 

@@ -17,8 +17,13 @@ class EnhancedSettings(BaseSettings):
     HOST: str = "0.0.0.0"
     PORT: int = 8000
     
-    # CORS Configuration
+    # Security Configuration
+    ALLOWED_HOSTS: List[str] = ["*"]  # Configure for production
     ALLOWED_ORIGINS: List[str] = ["*"]  # Configure for production
+    SECRET_KEY: str = "your-secret-key-here-change-in-production"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    RATE_LIMIT_PER_HOUR: int = 100
+    MAX_REQUESTS_PER_MINUTE: int = 20
     
     # Analysis Configuration
     MIN_CHART_SIZE: int = 100
